@@ -1,0 +1,34 @@
+openapi: 3.0.3
+info:
+  title: Inventory API
+  version: 1.0.0
+  description: Fictional API used as a technical-writing portfolio sample.
+servers:
+  - url: https://api.example.com/v1
+paths:
+  /products:
+    get:
+      summary: List products
+      parameters:
+        - in: query
+          name: limit
+          schema: {type: integer, default: 25, maximum: 100}
+      responses:
+        '200':
+          description: Product list returned successfully.
+    post:
+      summary: Create a product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, sku]
+              properties:
+                name: {type: string}
+                sku: {type: string}
+                quantity: {type: integer, minimum: 0}
+      responses:
+        '201': {description: Product created.}
+        '409': {description: A product with the supplied SKU already exists.}
